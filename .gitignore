@@ -1,0 +1,13 @@
+*.xml
+*.xml
+*.h
+*.iml
+*.pyc
+*.cfg
+env35/
+__pycache__/
+*.sqlite3
+.idea/
+learning_logs/migrations/0001_initial.py
+learning_logs/migrations/0002_entry.py
+learning_logs/migrations/0003_topic_owner.py
