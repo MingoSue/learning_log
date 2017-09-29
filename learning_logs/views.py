@@ -4,9 +4,11 @@ from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from .forms import TopicForm, EntryForm
 from django.contrib.auth.decorators import login_required
+from .tasks import hello_world
 
 # Create your views here.
 def index(request):
+    hello_world.delay()
     return render(request, 'learning_logs/index.html')
 
 @login_required
@@ -31,6 +33,14 @@ def edit_topic(request, topic_id):
             return HttpResponseRedirect(reverse('learning_logs:topics'))
     context = {'form': form}
     return render(request, 'learning_logs/edit_topic.html', context)
+
+@login_required
+def delete_topic(request, topic_id):
+    topic = Topic.objects.get(id=topic_id)
+    if topic.owner != request.user:
+        raise Http404
+    topic.delete()
+    return HttpResponseRedirect(reverse('learning_logs:topics'))
 
 @login_required
 def topic(request, topic_id):
@@ -91,3 +101,13 @@ def edit_entry(request, entry_id):
                                                 args=[topic.id]))
     context = {'entry': entry, 'topic': topic, 'form': form}
     return render(request, 'learning_logs/edit_entry.html', context)
+
+@login_required
+def delete_entry(request, entry_id):
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+    if topic.owner != request.user:
+        raise Http404
+    entry.delete()
+    return HttpResponseRedirect(reverse('learning_logs:topic',
+                                        args=[topic.id]))

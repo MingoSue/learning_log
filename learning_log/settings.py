@@ -1,4 +1,7 @@
 # Django settings for learning_log project.
+import djcelery
+djcelery.setup_loader()
+BROKER_URL = 'django://'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -140,7 +143,9 @@ INSTALLED_APPS = (
     'learning_logs',
     'users',
     # 第三方应用程序
-    'bootstrap3'
+    'bootstrap3',
+    'djcelery',
+    'kombu.transport.django',
 )
 
 # A sample logging configuration. The only tangible logging

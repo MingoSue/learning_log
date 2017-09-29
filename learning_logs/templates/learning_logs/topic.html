@@ -16,8 +16,9 @@
             <h3>
                 {{ entry.date_added|date:'M d, Y H:i' }}
                 <small>
-                    <a href="{% url 'learning_logs:edit_entry' entry.id %}">
-                        edit entry</a>
+                    <a href="{% url 'learning_logs:edit_entry' entry.id %}">edit entry</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="{% url 'learning_logs:delete_entry' entry.id %}">delete entry</a>
                 </small>
             </h3>
           </div>

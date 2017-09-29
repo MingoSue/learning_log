@@ -14,6 +14,8 @@
             </h3>
             <small>
                 <a href="{% url 'learning_logs:edit_topic' topic.id %}">edit topic</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'learning_logs:delete_topic' topic.id %}">delete topic</a>
             </small>
         </li>
     {% empty %}
